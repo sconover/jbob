@@ -58,5 +58,15 @@ describe("Jbob html", function() {
     });
   });
   
+  describe("the class attribute", function() {
+    it("can be used", function(){
+      _ = {}
+      Jbob.htmlTags(_)
+      
+      expect(_.div({class:"huge", width:"100%"})).
+     toEqual("<div class=\"huge\" width=\"100%\"/>\n")
+    })
+  })
+  
 });
 
