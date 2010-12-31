@@ -17,14 +17,14 @@ Jbob is a builder for Javascript.
 
 Inspired by: 
 
-[Jaml](https://github.com/edspencer/jaml)
+[Jaml - https://github.com/edspencer/jaml](https://github.com/edspencer/jaml)
 
-[Erector](http://erector.rubyforge.org/userguide.html)
+[Erector - http://erector.rubyforge.org/userguide.html](http://erector.rubyforge.org/userguide.html)
 
 
 ## Usage
 
-Jbob is a function that can take any set of tag names and add those as builder functions on some target object.
+Jbob is a function that takes an array of tag names and adds the equivalent builder functions on to some target object.
 
     var myObj = {};
     Jbob.apply(myObj, [{tags:["foo", "bar", "helloThere"]}]);
