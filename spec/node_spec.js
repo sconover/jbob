@@ -109,62 +109,67 @@ describe("Jbob: nodes", function() {
     });
   });
   
-  // describe("array children", function() {
-  //   it("renders an array of nodes as a series of child nodes.  " +
-  //      "this is often useful when you want to $.map or _.map an array of objects into the equivalent array of nodes.", function(){
-  //     expect(fooBar.addChild([new Jaml.Node("x"), new Jaml.Node("y")]).
-  //                   addChild(new Jaml.Node("z")).render()).
-  //    toEqual("<fooBar>\n" +
-  //            "  <x/>\n" +
-  //            "  <y/>\n" +
-  //            "  <z/>\n" +
-  //            "</fooBar>\n");
-  //   });    
-  // 
-  //   it("works with mixed node and textnodes", function(){
-  //     expect(fooBar.addChild([new Jaml.Node("x"), new Jaml.TextNode("y")]).
-  //                   addChild(new Jaml.TextNode("z")).render()).
-  //    toEqual("<fooBar>\n" +
-  //            "  <x/>\n" +
-  //            "yz</fooBar>\n");
-  //   });    
-  // 
-  //   it("renders arrays of arrays too", function(){
-  //      expect(fooBar.addChild([[new Jaml.Node("x"), [new Jaml.Node("y")]]]).
-  //                    addChild(new Jaml.Node("z")).render()).
-  //     toEqual("<fooBar>\n" +
-  //             "  <x/>\n" +
-  //             "  <y/>\n" +
-  //             "  <z/>\n" +
-  //             "</fooBar>\n");
-  //   });    
-  // 
-  //   it("renders children of children in arrays properly", function(){
-  //     expect(fooBar.addChild([[new Jaml.Node("x").addChild(new Jaml.Node("J")), 
-  //                             [new Jaml.Node("y").addChild(new Jaml.Node("K"))]]]).
-  //                   addChild(new Jaml.Node("z")).render()).
-  //    toEqual("<fooBar>\n" +
-  //            "  <x>\n" +
-  //            "    <J/>\n" +
-  //            "  </x>\n" +
-  //            "  <y>\n" +
-  //            "    <K/>\n" +
-  //            "  </y>\n" +
-  //            "  <z/>\n" +
-  //            "</fooBar>\n");
-  //   });    
-  // 
-  //   it("renders array children, plus attributes, properly (bug)", function(){
-  //     expect(fooBar.setAttributes({x:"y"}).
-  //                   addChild([new Jaml.Node("x"), new Jaml.Node("y")]).render()).
-  //    toEqual("<fooBar x=\"y\">\n" +
-  //            "  <x/>\n" +
-  //            "  <y/>\n" +
-  //            "</fooBar>\n");
-  //   });    
-  // 
-  // })
-  // 
+  describe("array children", function() {
+    it("renders an array of nodes as a series of child nodes.  " +
+       "this is often useful when you want to $.map or _.map an array of objects into the equivalent array of nodes.", function(){
+      expect(_.fooBar(
+               [_.x(), _.y()], 
+               _.z()
+            )).
+     toEqual("<fooBar>\n" +
+               "<x/>\n" +
+               "<y/>\n" +
+               "<z/>\n" +
+             "</fooBar>\n");
+    });    
+  
+    it("works with mixed node and textnodes", function(){
+      expect(_.fooBar(
+               [_.x(), "y"], 
+               "z"
+            )).
+     toEqual("<fooBar>\n" +
+               "<x/>\n" +
+             "yz</fooBar>\n");
+    });    
+  
+    it("renders arrays of arrays too", function(){
+       expect(_.fooBar(
+               [[_.x(), [_.y()]]],
+               _.z())
+             ).
+      toEqual("<fooBar>\n" +
+                "<x/>\n" +
+                "<y/>\n" +
+                "<z/>\n" +
+              "</fooBar>\n");
+    });    
+  
+    it("renders children of children in arrays properly", function(){
+      expect(_.fooBar([[ _.x(_.J()) , 
+                       [ _.y(_.K()) ]]],
+                      _.z())).
+     toEqual("<fooBar>\n" +
+               "<x>\n" +
+                 "<J/>\n" +
+               "</x>\n" +
+               "<y>\n" +
+                 "<K/>\n" +
+               "</y>\n" +
+               "<z/>\n" +
+             "</fooBar>\n");
+    });    
+  
+    it("renders array children, plus attributes, properly (bug)", function(){
+      expect(_.fooBar({x:"y"}, [_.x(), _.y()])).
+     toEqual("<fooBar x=\"y\">\n" +
+               "<x/>\n" +
+               "<y/>\n" +
+             "</fooBar>\n");
+    });    
+  
+  })
+  
   describe("textnode children", function() {
     it("renders a single textnode child all on one line", function(){
       expect(_.fooBar("x")).
