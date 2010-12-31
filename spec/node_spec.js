@@ -108,7 +108,7 @@ describe("Jbob: nodes", function() {
              "</fooBar>\n");
     });
   });
-  // 
+  
   // describe("array children", function() {
   //   it("renders an array of nodes as a series of child nodes.  " +
   //      "this is often useful when you want to $.map or _.map an array of objects into the equivalent array of nodes.", function(){
@@ -165,22 +165,21 @@ describe("Jbob: nodes", function() {
   // 
   // })
   // 
-  // describe("textnode children", function() {
-  //   it("renders", function(){
-  //     expect(new Jaml.TextNode("x").render()).
-  //    toEqual("x");
-  //   });
-  // 
-  //   it("renders a single textnode child all on one line", function(){
-  //     expect(new Jaml.Node("fooBar").addChild(new Jaml.TextNode("x")).render()).
-  //    toEqual("<fooBar>x</fooBar>\n");
-  //   });
-  // 
-  //   it("renders text nodes in one line, on a new line if there are multiple textnode children", function(){
-  //     expect(fooBar.addChild(new Jaml.TextNode("x")).
-  //                   addChild(new Jaml.TextNode("y")).render()).
-  //    toEqual("<fooBar>\nxy</fooBar>\n");
-  //   });
-  // });
+  describe("textnode children", function() {
+    it("renders a single textnode child all on one line", function(){
+      expect(_.fooBar("x")).
+     toEqual("<fooBar>x</fooBar>\n");
+    });
+  
+    it("renders text nodes in one line, on a new line if there are multiple textnode children", function(){
+      expect(_.fooBar("x", "y")).
+     toEqual("<fooBar>xy</fooBar>\n");
+    });
+
+    it("renders mixed text and element nodes - elements have newlines and text nodes do not", function(){
+      expect(_.fooBar("x", _.J(), "y", _.K())).
+     toEqual("<fooBar>x<J/>\ny<K/>\n</fooBar>\n");
+    });
+  });
 });
 
