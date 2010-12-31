@@ -4,7 +4,8 @@ describe("Jbob: nodes", function() {
   
   beforeEach(function(){
     _ = {}
-    Jbob.apply(_, [{tags:["fooBar", "x", "y", "iDontSelfClose"], nonSelfClosingTags:["iDontSelfClose"]}])
+    Jbob.apply(_, [{tags:["fooBar", "x", "y", "z", "J", "K", "iDontSelfClose"], 
+                    nonSelfClosingTags:["iDontSelfClose"]}])
   });
   
   describe("tag closing", function() {
@@ -74,41 +75,39 @@ describe("Jbob: nodes", function() {
     
     //todo: throw if the attribute value is a non-primitive?
   });
-  // 
-  // describe("element children", function() {
-  //   it("renders children as inner tags", function(){
-  //     expect(fooBar.addChild(new Jaml.Node("x")).render()).
-  //    toEqual("<fooBar>\n" +
-  //            "  <x/>\n" +
-  //            "</fooBar>\n");
-  //   });
-  // 
-  //   it("renders multiple children in order", function(){
-  //     expect(fooBar.addChild(new Jaml.Node("x")).
-  //                   addChild(new Jaml.Node("y")).
-  //                   addChild(new Jaml.Node("z")).render()).
-  //    toEqual("<fooBar>\n" +
-  //            "  <x/>\n" +
-  //            "  <y/>\n" +
-  //            "  <z/>\n" +
-  //            "</fooBar>\n");
-  //   });
-  // 
-  //   it("renders children of children", function(){
-  //     expect(fooBar.addChild(new Jaml.Node("x").
-  //                     addChild(new Jaml.Node("J"))).
-  //                   addChild(new Jaml.Node("y").
-  //                     addChild(new Jaml.Node("K"))).render()).
-  //    toEqual("<fooBar>\n" +
-  //            "  <x>\n" +
-  //            "    <J/>\n" +
-  //            "  </x>\n" +
-  //            "  <y>\n" +
-  //            "    <K/>\n" +
-  //            "  </y>\n" +
-  //            "</fooBar>\n");
-  //   });
-  // });
+  
+  describe("element children", function() {
+    it("renders children as inner tags", function(){
+      expect(_.fooBar(_.x())).
+     toEqual("<fooBar>\n" +
+               "<x/>\n" +
+             "</fooBar>\n");
+    });
+  
+    it("renders multiple children in order", function(){
+      expect(_.fooBar(_.x(), _.y(), _.z())).
+     toEqual("<fooBar>\n" +
+               "<x/>\n" +
+               "<y/>\n" +
+               "<z/>\n" +
+             "</fooBar>\n");
+    });
+  
+    it("renders children of children", function(){
+      expect(_.fooBar(
+               _.x(_.J()), 
+               _.y(_.K())
+             )).
+     toEqual("<fooBar>\n" +
+               "<x>\n" +
+                 "<J/>\n" +
+               "</x>\n" +
+               "<y>\n" +
+                 "<K/>\n" +
+               "</y>\n" +
+             "</fooBar>\n");
+    });
+  });
   // 
   // describe("array children", function() {
   //   it("renders an array of nodes as a series of child nodes.  " +
