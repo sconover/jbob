@@ -195,5 +195,12 @@ describe("Jbob: nodes", function() {
      toEqual("<fooBar>x<J/>\ny<K/>\n</fooBar>\n");
     });
   });
+  
+  describe("special Root function", function() {
+    it("joins together everything handed to it", function(){
+      expect(_.Root(_.x(), _.y())).
+     toEqual("<x/>\n<y/>\n");
+    });
+  });
 });
 
