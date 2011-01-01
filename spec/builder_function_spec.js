@@ -5,7 +5,9 @@ describe("Jbob: nodes", function() {
   beforeEach(function(){
     _ = {}
     Jbob.apply(_, [{tags:["fooBar", "x", "y", "z", "J", "K", "iDontSelfClose"], 
-                    nonSelfClosingTags:["iDontSelfClose"]}])
+                    nonSelfClosingTags:["iDontSelfClose"],
+                    attributeMappings:{"iDontCauseProblems":"iCauseProblemsInJsButNotInBuilderOutput"}
+                   }])
   });
   
   describe("tag closing", function() {
@@ -74,6 +76,13 @@ describe("Jbob: nodes", function() {
     });
     
     //todo: throw if the attribute value is a non-primitive?
+  });
+  
+  describe("attribute mappings", function() {
+    it("converts mapped attributes to the appropriate name in the output", function(){
+       expect(_.fooBar({iDontCauseProblems:"zzz"})).
+      toEqual("<fooBar iCauseProblemsInJsButNotInBuilderOutput=\"zzz\"/>\n");
+    });
   });
   
   describe("element children", function() {

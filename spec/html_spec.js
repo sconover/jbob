@@ -66,6 +66,14 @@ describe("Jbob html", function() {
       expect(_.div({class:"huge", width:"100%"})).
      toEqual("<div class=\"huge\" width=\"100%\"/>\n")
     })
+
+    it("can be generated using cls instead, because class can cause problems", function(){
+      _ = {}
+      Jbob.htmlTags(_)
+      
+      expect(_.div({cls:"huge", width:"100%"})).
+     toEqual("<div class=\"huge\" width=\"100%\"/>\n")
+    })
   })
   
 });
