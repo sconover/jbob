@@ -63,7 +63,7 @@ The first parameter to any builder function can be an associative array of attri
     );
      ==>
        <foo>
-       <bar a=2 x="y">
+       <bar a="2" x="y">
        <foo/>
        <foo/>
        </bar>
