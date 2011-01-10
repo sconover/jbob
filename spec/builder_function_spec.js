@@ -47,15 +47,26 @@ describe("Jbob: nodes", function() {
      toEqual("<fooBar a=\"b\" c=\"d\" x=\"y\"/>\n");
     });
   
+    //todo: throw if the attribute value is a non-primitive?
+  });
+  
+  describe("values", function(){
     it("renders booleans", function(){
       expect(_.fooBar({a:true})).toEqual("<fooBar a=\"true\"/>\n");
       expect(_.fooBar({a:false})).toEqual("<fooBar a=\"false\"/>\n");
+      
+      expect(_.fooBar(true)).toEqual("<fooBar>true</fooBar>\n");
+      expect(_.fooBar(false)).toEqual("<fooBar>false</fooBar>\n");
     });
       
     it("renders integers", function(){
       expect(_.fooBar({a:0})).toEqual("<fooBar a=\"0\"/>\n");
       expect(_.fooBar({a:-1})).toEqual("<fooBar a=\"-1\"/>\n");
       expect(_.fooBar({a:7})).toEqual("<fooBar a=\"7\"/>\n");
+
+      expect(_.fooBar(0)).toEqual("<fooBar>0</fooBar>\n");
+      expect(_.fooBar(-1)).toEqual("<fooBar>-1</fooBar>\n");
+      expect(_.fooBar(7)).toEqual("<fooBar>7</fooBar>\n");
     });
     
     it("renders floats", function(){
@@ -66,6 +77,15 @@ describe("Jbob: nodes", function() {
 
       expect(_.fooBar({a:23.45})).toEqual("<fooBar a=\"23.45\"/>\n");
       expect(_.fooBar({a:-23.45})).toEqual("<fooBar a=\"-23.45\"/>\n");
+
+
+      expect(_.fooBar(0.0)).toEqual("<fooBar>0</fooBar>\n");
+      
+      expect(_.fooBar(0.01)).toEqual("<fooBar>0.01</fooBar>\n");
+      expect(_.fooBar(0.0100)).toEqual("<fooBar>0.01</fooBar>\n");
+      
+      expect(_.fooBar(23.45)).toEqual("<fooBar>23.45</fooBar>\n");
+      expect(_.fooBar(-23.45)).toEqual("<fooBar>-23.45</fooBar>\n");
     });
     
     it("does the javascript thing on really big and really small numbers.  just calling this out.", function(){
@@ -73,9 +93,22 @@ describe("Jbob: nodes", function() {
       expect(_.fooBar({a:70000000000000000000000.01})).toEqual("<fooBar a=\"7e+22\"/>\n");
 
       expect(_.fooBar({a:0.00000000000000000000007})).toEqual("<fooBar a=\"7e-23\"/>\n");
+
+
+
+      expect(_.fooBar(70000000000000000000000)).toEqual("<fooBar>7e+22</fooBar>\n");
+      expect(_.fooBar(70000000000000000000000.01)).toEqual("<fooBar>7e+22</fooBar>\n");
+      
+      expect(_.fooBar(0.00000000000000000000007)).toEqual("<fooBar>7e-23</fooBar>\n");
     });
     
-    //todo: throw if the attribute value is a non-primitive?
+    it("renders null and undefined as blank, or nothing", function(){
+      expect(_.fooBar({a:null})).toEqual("<fooBar a=\"\"/>\n");
+      expect(_.fooBar({a:undefined})).toEqual("<fooBar a=\"\"/>\n");
+      
+      expect(_.fooBar(null)).toEqual("<fooBar/>\n");
+      expect(_.fooBar(undefined)).toEqual("<fooBar></fooBar>\n");
+    });
   });
   
   describe("attribute mappings", function() {
@@ -202,5 +235,6 @@ describe("Jbob: nodes", function() {
      toEqual("<x/>\n<y/>\n");
     });
   });
+  
 });
 
